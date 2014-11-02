@@ -16,8 +16,7 @@ if(CMAKE_COMPILER_IS_GNUCC)
   set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fPIC")
 endif()
 
-# Need to supress -rdynamic, otherwise we're having some nasty crashes.
-SET(CMAKE_SHARED_LIBRARY_LINK_C_FLAGS "")
+set(CMAKE_EXE_LINKER_FLAGS "${PLATFORM_LINKFLAGS} -Wl,--version-script=${CMAKE_SOURCE_DIR}/src/sdlew.map")
 
 include_directories(include)
 
