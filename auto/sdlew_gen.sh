@@ -16,7 +16,7 @@ echo "Generating sdlew headers..."
 for header in $INCLUDE_DIR/*; do
   filename=`basename $header`
   cat $header \
-    | sed -r 's/extern DECLSPEC ([a-z0-9_]+(\s\*)?) SDLCALL /typedef \1 SDLCALL t/i' \
+    | sed -r 's/extern DECLSPEC ((const )?[a-z0-9_]+(\s\*)?) SDLCALL /typedef \1 SDLCALL t/i' \
     > $DIR/include/SDL/$filename
 
   line_num=`cat $DIR/include/SDL/$filename | grep -n "Ends C function" | cut -d : -f 1`

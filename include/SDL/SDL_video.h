@@ -297,7 +297,7 @@ typedef SDL_Surface * SDLCALL tSDL_GetVideoSurface(void);
  * member of the returned structure will contain the pixel format of the
  * "best" video mode.
  */
-extern DECLSPEC const SDL_VideoInfo * SDLCALL SDL_GetVideoInfo(void);
+typedef const SDL_VideoInfo * SDLCALL tSDL_GetVideoInfo(void);
 
 /**
  * Check to see if a particular video mode is supported.
@@ -946,6 +946,7 @@ extern tSDL_VideoInit *SDL_VideoInit;
 extern tSDL_VideoQuit *SDL_VideoQuit;
 extern tSDL_VideoDriverName *SDL_VideoDriverName;
 extern tSDL_GetVideoSurface *SDL_GetVideoSurface;
+extern tSDL_GetVideoInfo *SDL_GetVideoInfo;
 extern tSDL_VideoModeOK *SDL_VideoModeOK;
 extern tSDL_SetVideoMode *SDL_SetVideoMode;
 extern tSDL_UpdateRects *SDL_UpdateRects;

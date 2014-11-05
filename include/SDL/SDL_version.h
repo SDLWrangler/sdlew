@@ -80,9 +80,9 @@ typedef struct SDL_version {
  *  it should NOT be used to fill a version structure, instead you should
  *  use the SDL_Version() macro.
  */
-extern DECLSPEC const SDL_version * SDLCALL SDL_Linked_Version(void);
+typedef const SDL_version * SDLCALL tSDL_Linked_Version(void);
 
-
+extern tSDL_Linked_Version *SDL_Linked_Version;
 
 /* Ends C function definitions when using C++ */
 #ifdef __cplusplus

@@ -58,7 +58,7 @@ typedef int SDLCALL tSDL_NumJoysticks(void);
  * This can be called before any joysticks are opened.
  * If no name can be found, this function returns NULL.
  */
-extern DECLSPEC const char * SDLCALL SDL_JoystickName(int device_index);
+typedef const char * SDLCALL tSDL_JoystickName(int device_index);
 
 /**
  * Open a joystick for use.
@@ -179,6 +179,7 @@ typedef void SDLCALL tSDL_JoystickClose(SDL_Joystick *joystick);
 
 
 extern tSDL_NumJoysticks *SDL_NumJoysticks;
+extern tSDL_JoystickName *SDL_JoystickName;
 extern tSDL_JoystickOpen *SDL_JoystickOpen;
 extern tSDL_JoystickOpened *SDL_JoystickOpened;
 extern tSDL_JoystickIndex *SDL_JoystickIndex;

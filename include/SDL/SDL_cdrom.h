@@ -120,7 +120,7 @@ typedef int SDLCALL tSDL_CDNumDrives(void);
  *   - "E:"
  *   - "/dev/disk/ide/1/master"
  */
-extern DECLSPEC const char * SDLCALL SDL_CDName(int drive);
+typedef const char * SDLCALL tSDL_CDName(int drive);
 
 /**
  *  Opens a CD-ROM drive for access.  It returns a drive handle on success,
@@ -194,6 +194,7 @@ typedef void SDLCALL tSDL_CDClose(SDL_CD *cdrom);
 
 
 extern tSDL_CDNumDrives *SDL_CDNumDrives;
+extern tSDL_CDName *SDL_CDName;
 extern tSDL_CDOpen *SDL_CDOpen;
 extern tSDL_CDStatus *SDL_CDStatus;
 extern tSDL_CDPlayTracks *SDL_CDPlayTracks;
