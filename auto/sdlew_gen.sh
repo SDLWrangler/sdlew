@@ -22,7 +22,7 @@ for header in $INCLUDE_DIR/*; do
   line_num=`cat $DIR/include/SDL/$filename | grep -n "Ends C function" | cut -d : -f 1`
   if [ ! -z "$line_num" ]; then
     functions=`grep -E 'typedef [A-Za-z0-9_ \*]+ SDLCALL' $DIR/include/SDL/$filename \
-      | sed -r 's/typedef [A-Za-z0-9_ \*]+ SDLCALL t([a-z0-9_]+(\s\*)?).*/extern t\1 *\1;/i'`
+      | sed -r 's/typedef [A-Za-z0-9_ \*]+ SDLCALL t([a-z0-9_]+).*/extern t\1 *\1;/i'`
     functions=`echo "${functions}" | sed -e 's/[\/&]/\\\&/g'`
     echo "$functions" | while read function; do
       sed -ri "${line_num}s/(.*)/${function}\n\1/" $DIR/include/SDL/$filename
