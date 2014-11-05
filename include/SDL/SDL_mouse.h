@@ -82,7 +82,7 @@ typedef void SDLCALL tSDL_WarpMouse(Uint16 x, Uint16 y);
  *
  * Cursors created with this function must be freed with SDL_FreeCursor().
  */
-extern DECLSPEC SDL_Cursor * SDLCALL SDL_CreateCursor
+typedef SDL_Cursor * SDLCALL tSDL_CreateCursor
 		(Uint8 *data, Uint8 *mask, int w, int h, int hot_x, int hot_y);
 
 /**
@@ -95,7 +95,7 @@ typedef void SDLCALL tSDL_SetCursor(SDL_Cursor *cursor);
 /**
  * Returns the currently active cursor.
  */
-extern DECLSPEC SDL_Cursor * SDLCALL SDL_GetCursor(void);
+typedef SDL_Cursor * SDLCALL tSDL_GetCursor(void);
 
 /**
  * Deallocates a cursor created with SDL_CreateCursor().
@@ -137,7 +137,9 @@ typedef int SDLCALL tSDL_ShowCursor(int toggle);
 extern tSDL_GetMouseState *SDL_GetMouseState;
 extern tSDL_GetRelativeMouseState *SDL_GetRelativeMouseState;
 extern tSDL_WarpMouse *SDL_WarpMouse;
+extern tSDL_CreateCursor *SDL_CreateCursor;
 extern tSDL_SetCursor *SDL_SetCursor;
+extern tSDL_GetCursor *SDL_GetCursor;
 extern tSDL_FreeCursor *SDL_FreeCursor;
 extern tSDL_ShowCursor *SDL_ShowCursor;
 

@@ -57,18 +57,20 @@ extern "C" {
  * to the object handle (or NULL if there was an error).
  * The 'sofile' parameter is a system dependent name of the object file.
  */
-extern DECLSPEC void * SDLCALL SDL_LoadObject(const char *sofile);
+typedef void * SDLCALL tSDL_LoadObject(const char *sofile);
 
 /**
  * Given an object handle, this function looks up the address of the
  * named function in the shared object and returns it.  This address
  * is no longer valid after calling SDL_UnloadObject().
  */
-extern DECLSPEC void * SDLCALL SDL_LoadFunction(void *handle, const char *name);
+typedef void * SDLCALL tSDL_LoadFunction(void *handle, const char *name);
 
 /** Unload a shared object from memory */
 typedef void SDLCALL tSDL_UnloadObject(void *handle);
 
+extern tSDL_LoadObject *SDL_LoadObject;
+extern tSDL_LoadFunction *SDL_LoadFunction;
 extern tSDL_UnloadObject *SDL_UnloadObject;
 
 /* Ends C function definitions when using C++ */

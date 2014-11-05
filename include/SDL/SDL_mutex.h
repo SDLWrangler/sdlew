@@ -56,7 +56,7 @@ struct SDL_mutex;
 typedef struct SDL_mutex SDL_mutex;
 
 /** Create a mutex, initialized unlocked */
-extern DECLSPEC SDL_mutex * SDLCALL SDL_CreateMutex(void);
+typedef SDL_mutex * SDLCALL tSDL_CreateMutex(void);
 
 #define SDL_LockMutex(m)	SDL_mutexP(m)
 /** Lock the mutex
@@ -87,7 +87,7 @@ struct SDL_semaphore;
 typedef struct SDL_semaphore SDL_sem;
 
 /** Create a semaphore, initialized with value, returns NULL on failure. */
-extern DECLSPEC SDL_sem * SDLCALL SDL_CreateSemaphore(Uint32 initial_value);
+typedef SDL_sem * SDLCALL tSDL_CreateSemaphore(Uint32 initial_value);
 
 /** Destroy a semaphore */
 typedef void SDLCALL tSDL_DestroySemaphore(SDL_sem *sem);
@@ -135,7 +135,7 @@ typedef struct SDL_cond SDL_cond;
 /*@}*/
 
 /** Create a condition variable */
-extern DECLSPEC SDL_cond * SDLCALL SDL_CreateCond(void);
+typedef SDL_cond * SDLCALL tSDL_CreateCond(void);
 
 /** Destroy a condition variable */
 typedef void SDLCALL tSDL_DestroyCond(SDL_cond *cond);
@@ -167,15 +167,18 @@ typedef int SDLCALL tSDL_CondWaitTimeout(SDL_cond *cond, SDL_mutex *mutex, Uint3
 
 /*@}*/
 
+extern tSDL_CreateMutex *SDL_CreateMutex;
 extern tSDL_mutexP *SDL_mutexP;
 extern tSDL_mutexV *SDL_mutexV;
 extern tSDL_DestroyMutex *SDL_DestroyMutex;
+extern tSDL_CreateSemaphore *SDL_CreateSemaphore;
 extern tSDL_DestroySemaphore *SDL_DestroySemaphore;
 extern tSDL_SemWait *SDL_SemWait;
 extern tSDL_SemTryWait *SDL_SemTryWait;
 extern tSDL_SemWaitTimeout *SDL_SemWaitTimeout;
 extern tSDL_SemPost *SDL_SemPost;
 extern tSDL_SemValue *SDL_SemValue;
+extern tSDL_CreateCond *SDL_CreateCond;
 extern tSDL_DestroyCond *SDL_DestroyCond;
 extern tSDL_CondSignal *SDL_CondSignal;
 extern tSDL_CondBroadcast *SDL_CondBroadcast;

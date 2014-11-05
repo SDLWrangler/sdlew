@@ -129,7 +129,7 @@ extern DECLSPEC const char * SDLCALL SDL_CDName(int drive);
  *  CD-ROM handle.
  *  Drives are numbered starting with 0.  Drive 0 is the system default CD-ROM.
  */
-extern DECLSPEC SDL_CD * SDLCALL SDL_CDOpen(int drive);
+typedef SDL_CD * SDLCALL tSDL_CDOpen(int drive);
 
 /**
  *  This function returns the current status of the given drive.
@@ -194,6 +194,7 @@ typedef void SDLCALL tSDL_CDClose(SDL_CD *cdrom);
 
 
 extern tSDL_CDNumDrives *SDL_CDNumDrives;
+extern tSDL_CDOpen *SDL_CDOpen;
 extern tSDL_CDStatus *SDL_CDStatus;
 extern tSDL_CDPlayTracks *SDL_CDPlayTracks;
 extern tSDL_CDPlay *SDL_CDPlay;

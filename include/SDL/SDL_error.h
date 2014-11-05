@@ -41,7 +41,7 @@ extern "C" {
  */
 /*@{*/
 typedef void SDLCALL tSDL_SetError(const char *fmt, ...);
-extern DECLSPEC char * SDLCALL SDL_GetError(void);
+typedef char * SDLCALL tSDL_GetError(void);
 typedef void SDLCALL tSDL_ClearError(void);
 /*@}*/
 
@@ -64,6 +64,7 @@ typedef void SDLCALL tSDL_Error(SDL_errorcode code);
 /*@}*/
 
 extern tSDL_SetError *SDL_SetError;
+extern tSDL_GetError *SDL_GetError;
 extern tSDL_ClearError *SDL_ClearError;
 extern tSDL_Error *SDL_Error;
 

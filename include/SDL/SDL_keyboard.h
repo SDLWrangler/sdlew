@@ -107,7 +107,7 @@ typedef void SDLCALL tSDL_GetKeyRepeat(int *delay, int *interval);
  *	if ( keystate[SDLK_RETURN] ) //... \<RETURN> is pressed.
  *	@endcode
  */
-extern DECLSPEC Uint8 * SDLCALL SDL_GetKeyState(int *numkeys);
+typedef Uint8 * SDLCALL tSDL_GetKeyState(int *numkeys);
 
 /**
  * Get the current key modifier state
@@ -123,14 +123,16 @@ typedef void SDLCALL tSDL_SetModState(SDLMod modstate);
 /**
  * Get the name of an SDL virtual keysym
  */
-extern DECLSPEC char * SDLCALL SDL_GetKeyName(SDLKey key);
+typedef char * SDLCALL tSDL_GetKeyName(SDLKey key);
 
 
 extern tSDL_EnableUNICODE *SDL_EnableUNICODE;
 extern tSDL_EnableKeyRepeat *SDL_EnableKeyRepeat;
 extern tSDL_GetKeyRepeat *SDL_GetKeyRepeat;
+extern tSDL_GetKeyState *SDL_GetKeyState;
 extern tSDL_GetModState *SDL_GetModState;
 extern tSDL_SetModState *SDL_SetModState;
+extern tSDL_GetKeyName *SDL_GetKeyName;
 
 /* Ends C function definitions when using C++ */
 #ifdef __cplusplus

@@ -59,8 +59,20 @@ typedef void* DynamicLibrary;
 
 static DynamicLibrary lib;
 
+#ifndef HAVE_MALLOC
+tSDL_malloc *SDL_malloc;
+#endif
+#ifndef HAVE_CALLOC
+tSDL_calloc *SDL_calloc;
+#endif
+#ifndef HAVE_REALLOC
+tSDL_realloc *SDL_realloc;
+#endif
 #ifndef HAVE_FREE
 tSDL_free *SDL_free;
+#endif
+#ifndef HAVE_GETENV
+tSDL_getenv *SDL_getenv;
 #endif
 #ifndef HAVE_PUTENV
 tSDL_putenv *SDL_putenv;
@@ -68,6 +80,13 @@ tSDL_putenv *SDL_putenv;
 #ifndef HAVE_QSORT
 tSDL_qsort *SDL_qsort;
 #endif
+#ifndef HAVE_MEMSET
+tSDL_memset *SDL_memset;
+#endif
+#ifndef HAVE_MEMCPY
+tSDL_memcpy *SDL_memcpy;
+#endif
+tSDL_revcpy *SDL_revcpy;
 #ifndef HAVE_MEMCMP
 tSDL_memcmp *SDL_memcmp;
 #endif
@@ -79,6 +98,33 @@ tSDL_strlcpy *SDL_strlcpy;
 #endif
 #ifndef HAVE_STRLCAT
 tSDL_strlcat *SDL_strlcat;
+#endif
+#ifndef HAVE_STRDUP
+tSDL_strdup *SDL_strdup;
+#endif
+#ifndef HAVE__STRREV
+tSDL_strrev *SDL_strrev;
+#endif
+#ifndef HAVE__STRUPR
+tSDL_strupr *SDL_strupr;
+#endif
+#ifndef HAVE__STRLWR
+tSDL_strlwr *SDL_strlwr;
+#endif
+#ifndef HAVE_STRCHR
+tSDL_strchr *SDL_strchr;
+#endif
+#ifndef HAVE_STRRCHR
+tSDL_strrchr *SDL_strrchr;
+#endif
+#ifndef HAVE_STRSTR
+tSDL_strstr *SDL_strstr;
+#endif
+#ifndef HAVE__LTOA
+tSDL_ltoa *SDL_ltoa;
+#endif
+#ifndef HAVE__ULTOA
+tSDL_ultoa *SDL_ultoa;
 #endif
 #ifndef HAVE_STRTOL
 tSDL_strtol *SDL_strtol;
@@ -120,16 +166,22 @@ tSDL_iconv_open *SDL_iconv_open;
 tSDL_iconv_close *SDL_iconv_close;
 #endif
 tSDL_iconv *SDL_iconv;
+tSDL_iconv_string *SDL_iconv_string;
+tSDL_LoadObject *SDL_LoadObject;
+tSDL_LoadFunction *SDL_LoadFunction;
 tSDL_UnloadObject *SDL_UnloadObject;
+tSDL_CreateMutex *SDL_CreateMutex;
 tSDL_mutexP *SDL_mutexP;
 tSDL_mutexV *SDL_mutexV;
 tSDL_DestroyMutex *SDL_DestroyMutex;
+tSDL_CreateSemaphore *SDL_CreateSemaphore;
 tSDL_DestroySemaphore *SDL_DestroySemaphore;
 tSDL_SemWait *SDL_SemWait;
 tSDL_SemTryWait *SDL_SemTryWait;
 tSDL_SemWaitTimeout *SDL_SemWaitTimeout;
 tSDL_SemPost *SDL_SemPost;
 tSDL_SemValue *SDL_SemValue;
+tSDL_CreateCond *SDL_CreateCond;
 tSDL_DestroyCond *SDL_DestroyCond;
 tSDL_CondSignal *SDL_CondSignal;
 tSDL_CondBroadcast *SDL_CondBroadcast;
@@ -147,9 +199,13 @@ tSDL_GetAppState *SDL_GetAppState;
 tSDL_GetMouseState *SDL_GetMouseState;
 tSDL_GetRelativeMouseState *SDL_GetRelativeMouseState;
 tSDL_WarpMouse *SDL_WarpMouse;
+tSDL_CreateCursor *SDL_CreateCursor;
 tSDL_SetCursor *SDL_SetCursor;
+tSDL_GetCursor *SDL_GetCursor;
 tSDL_FreeCursor *SDL_FreeCursor;
 tSDL_ShowCursor *SDL_ShowCursor;
+tSDL_CreateThread *SDL_CreateThread;
+tSDL_CreateThread *SDL_CreateThread;
 tSDL_ThreadID *SDL_ThreadID;
 tSDL_GetThreadID *SDL_GetThreadID;
 tSDL_WaitThread *SDL_WaitThread;
@@ -157,13 +213,17 @@ tSDL_KillThread *SDL_KillThread;
 tSDL_EnableUNICODE *SDL_EnableUNICODE;
 tSDL_EnableKeyRepeat *SDL_EnableKeyRepeat;
 tSDL_GetKeyRepeat *SDL_GetKeyRepeat;
+tSDL_GetKeyState *SDL_GetKeyState;
 tSDL_GetModState *SDL_GetModState;
 tSDL_SetModState *SDL_SetModState;
+tSDL_GetKeyName *SDL_GetKeyName;
 tSDL_AudioInit *SDL_AudioInit;
 tSDL_AudioQuit *SDL_AudioQuit;
+tSDL_AudioDriverName *SDL_AudioDriverName;
 tSDL_OpenAudio *SDL_OpenAudio;
 tSDL_GetAudioStatus *SDL_GetAudioStatus;
 tSDL_PauseAudio *SDL_PauseAudio;
+tSDL_LoadWAV_RW *SDL_LoadWAV_RW;
 tSDL_FreeWAV *SDL_FreeWAV;
 tSDL_BuildAudioCVT *SDL_BuildAudioCVT;
 tSDL_ConvertAudio *SDL_ConvertAudio;
@@ -173,7 +233,10 @@ tSDL_UnlockAudio *SDL_UnlockAudio;
 tSDL_CloseAudio *SDL_CloseAudio;
 tSDL_VideoInit *SDL_VideoInit;
 tSDL_VideoQuit *SDL_VideoQuit;
+tSDL_VideoDriverName *SDL_VideoDriverName;
+tSDL_GetVideoSurface *SDL_GetVideoSurface;
 tSDL_VideoModeOK *SDL_VideoModeOK;
+tSDL_SetVideoMode *SDL_SetVideoMode;
 tSDL_UpdateRects *SDL_UpdateRects;
 tSDL_UpdateRect *SDL_UpdateRect;
 tSDL_Flip *SDL_Flip;
@@ -186,22 +249,30 @@ tSDL_MapRGB *SDL_MapRGB;
 tSDL_MapRGBA *SDL_MapRGBA;
 tSDL_GetRGB *SDL_GetRGB;
 tSDL_GetRGBA *SDL_GetRGBA;
+tSDL_CreateRGBSurface *SDL_CreateRGBSurface;
+tSDL_CreateRGBSurfaceFrom *SDL_CreateRGBSurfaceFrom;
 tSDL_FreeSurface *SDL_FreeSurface;
 tSDL_LockSurface *SDL_LockSurface;
 tSDL_UnlockSurface *SDL_UnlockSurface;
+tSDL_LoadBMP_RW *SDL_LoadBMP_RW;
 tSDL_SaveBMP_RW *SDL_SaveBMP_RW;
 tSDL_SetColorKey *SDL_SetColorKey;
 tSDL_SetAlpha *SDL_SetAlpha;
 tSDL_SetClipRect *SDL_SetClipRect;
 tSDL_GetClipRect *SDL_GetClipRect;
+tSDL_ConvertSurface *SDL_ConvertSurface;
 tSDL_UpperBlit *SDL_UpperBlit;
 tSDL_LowerBlit *SDL_LowerBlit;
 tSDL_FillRect *SDL_FillRect;
+tSDL_DisplayFormat *SDL_DisplayFormat;
+tSDL_DisplayFormatAlpha *SDL_DisplayFormatAlpha;
+tSDL_CreateYUVOverlay *SDL_CreateYUVOverlay;
 tSDL_LockYUVOverlay *SDL_LockYUVOverlay;
 tSDL_UnlockYUVOverlay *SDL_UnlockYUVOverlay;
 tSDL_DisplayYUVOverlay *SDL_DisplayYUVOverlay;
 tSDL_FreeYUVOverlay *SDL_FreeYUVOverlay;
 tSDL_GL_LoadLibrary *SDL_GL_LoadLibrary;
+tSDL_GL_GetProcAddress *SDL_GL_GetProcAddress;
 tSDL_GL_SetAttribute *SDL_GL_SetAttribute;
 tSDL_GL_GetAttribute *SDL_GL_GetAttribute;
 tSDL_GL_SwapBuffers *SDL_GL_SwapBuffers;
@@ -215,6 +286,11 @@ tSDL_WM_IconifyWindow *SDL_WM_IconifyWindow;
 tSDL_WM_ToggleFullScreen *SDL_WM_ToggleFullScreen;
 tSDL_WM_GrabInput *SDL_WM_GrabInput;
 tSDL_SoftStretch *SDL_SoftStretch;
+tSDL_RWFromFile *SDL_RWFromFile;
+tSDL_RWFromFP *SDL_RWFromFP;
+tSDL_RWFromMem *SDL_RWFromMem;
+tSDL_RWFromConstMem *SDL_RWFromConstMem;
+tSDL_AllocRW *SDL_AllocRW;
 tSDL_FreeRW *SDL_FreeRW;
 tSDL_ReadLE16 *SDL_ReadLE16;
 tSDL_ReadBE16 *SDL_ReadBE16;
@@ -239,6 +315,7 @@ tSDL_SetTimer *SDL_SetTimer;
 tSDL_AddTimer *SDL_AddTimer;
 tSDL_RemoveTimer *SDL_RemoveTimer;
 tSDL_NumJoysticks *SDL_NumJoysticks;
+tSDL_JoystickOpen *SDL_JoystickOpen;
 tSDL_JoystickOpened *SDL_JoystickOpened;
 tSDL_JoystickIndex *SDL_JoystickIndex;
 tSDL_JoystickNumAxes *SDL_JoystickNumAxes;
@@ -253,6 +330,7 @@ tSDL_JoystickGetBall *SDL_JoystickGetBall;
 tSDL_JoystickGetButton *SDL_JoystickGetButton;
 tSDL_JoystickClose *SDL_JoystickClose;
 tSDL_CDNumDrives *SDL_CDNumDrives;
+tSDL_CDOpen *SDL_CDOpen;
 tSDL_CDStatus *SDL_CDStatus;
 tSDL_CDPlayTracks *SDL_CDPlayTracks;
 tSDL_CDPlay *SDL_CDPlay;
@@ -270,6 +348,7 @@ tSDL_HasSSE *SDL_HasSSE;
 tSDL_HasSSE2 *SDL_HasSSE2;
 tSDL_HasAltiVec *SDL_HasAltiVec;
 tSDL_SetError *SDL_SetError;
+tSDL_GetError *SDL_GetError;
 tSDL_ClearError *SDL_ClearError;
 tSDL_Error *SDL_Error;
 tSDL_GetWMInfo *SDL_GetWMInfo;
@@ -318,8 +397,20 @@ int sdlewInit(void) {
     return result;
   }
 
+#ifndef HAVE_MALLOC
+  SDL_LIBRARY_FIND(SDL_malloc);
+#endif
+#ifndef HAVE_CALLOC
+  SDL_LIBRARY_FIND(SDL_calloc);
+#endif
+#ifndef HAVE_REALLOC
+  SDL_LIBRARY_FIND(SDL_realloc);
+#endif
 #ifndef HAVE_FREE
   SDL_LIBRARY_FIND(SDL_free);
+#endif
+#ifndef HAVE_GETENV
+  SDL_LIBRARY_FIND(SDL_getenv);
 #endif
 #ifndef HAVE_PUTENV
   SDL_LIBRARY_FIND(SDL_putenv);
@@ -327,6 +418,13 @@ int sdlewInit(void) {
 #ifndef HAVE_QSORT
   SDL_LIBRARY_FIND(SDL_qsort);
 #endif
+#ifndef HAVE_MEMSET
+  SDL_LIBRARY_FIND(SDL_memset);
+#endif
+#ifndef HAVE_MEMCPY
+  SDL_LIBRARY_FIND(SDL_memcpy);
+#endif
+  SDL_LIBRARY_FIND(SDL_revcpy);
 #ifndef HAVE_MEMCMP
   SDL_LIBRARY_FIND(SDL_memcmp);
 #endif
@@ -338,6 +436,33 @@ int sdlewInit(void) {
 #endif
 #ifndef HAVE_STRLCAT
   SDL_LIBRARY_FIND(SDL_strlcat);
+#endif
+#ifndef HAVE_STRDUP
+  SDL_LIBRARY_FIND(SDL_strdup);
+#endif
+#ifndef HAVE__STRREV
+  SDL_LIBRARY_FIND(SDL_strrev);
+#endif
+#ifndef HAVE__STRUPR
+  SDL_LIBRARY_FIND(SDL_strupr);
+#endif
+#ifndef HAVE__STRLWR
+  SDL_LIBRARY_FIND(SDL_strlwr);
+#endif
+#ifndef HAVE_STRCHR
+  SDL_LIBRARY_FIND(SDL_strchr);
+#endif
+#ifndef HAVE_STRRCHR
+  SDL_LIBRARY_FIND(SDL_strrchr);
+#endif
+#ifndef HAVE_STRSTR
+  SDL_LIBRARY_FIND(SDL_strstr);
+#endif
+#ifndef HAVE__LTOA
+  SDL_LIBRARY_FIND(SDL_ltoa);
+#endif
+#ifndef HAVE__ULTOA
+  SDL_LIBRARY_FIND(SDL_ultoa);
 #endif
 #ifndef HAVE_STRTOL
   SDL_LIBRARY_FIND(SDL_strtol);
@@ -379,16 +504,22 @@ int sdlewInit(void) {
   SDL_LIBRARY_FIND(SDL_iconv_close);
 #endif
   SDL_LIBRARY_FIND(SDL_iconv);
+  SDL_LIBRARY_FIND(SDL_iconv_string);
+  SDL_LIBRARY_FIND(SDL_LoadObject);
+  SDL_LIBRARY_FIND(SDL_LoadFunction);
   SDL_LIBRARY_FIND(SDL_UnloadObject);
+  SDL_LIBRARY_FIND(SDL_CreateMutex);
   SDL_LIBRARY_FIND(SDL_mutexP);
   SDL_LIBRARY_FIND(SDL_mutexV);
   SDL_LIBRARY_FIND(SDL_DestroyMutex);
+  SDL_LIBRARY_FIND(SDL_CreateSemaphore);
   SDL_LIBRARY_FIND(SDL_DestroySemaphore);
   SDL_LIBRARY_FIND(SDL_SemWait);
   SDL_LIBRARY_FIND(SDL_SemTryWait);
   SDL_LIBRARY_FIND(SDL_SemWaitTimeout);
   SDL_LIBRARY_FIND(SDL_SemPost);
   SDL_LIBRARY_FIND(SDL_SemValue);
+  SDL_LIBRARY_FIND(SDL_CreateCond);
   SDL_LIBRARY_FIND(SDL_DestroyCond);
   SDL_LIBRARY_FIND(SDL_CondSignal);
   SDL_LIBRARY_FIND(SDL_CondBroadcast);
@@ -406,9 +537,13 @@ int sdlewInit(void) {
   SDL_LIBRARY_FIND(SDL_GetMouseState);
   SDL_LIBRARY_FIND(SDL_GetRelativeMouseState);
   SDL_LIBRARY_FIND(SDL_WarpMouse);
+  SDL_LIBRARY_FIND(SDL_CreateCursor);
   SDL_LIBRARY_FIND(SDL_SetCursor);
+  SDL_LIBRARY_FIND(SDL_GetCursor);
   SDL_LIBRARY_FIND(SDL_FreeCursor);
   SDL_LIBRARY_FIND(SDL_ShowCursor);
+  SDL_LIBRARY_FIND(SDL_CreateThread);
+  SDL_LIBRARY_FIND(SDL_CreateThread);
   SDL_LIBRARY_FIND(SDL_ThreadID);
   SDL_LIBRARY_FIND(SDL_GetThreadID);
   SDL_LIBRARY_FIND(SDL_WaitThread);
@@ -416,13 +551,17 @@ int sdlewInit(void) {
   SDL_LIBRARY_FIND(SDL_EnableUNICODE);
   SDL_LIBRARY_FIND(SDL_EnableKeyRepeat);
   SDL_LIBRARY_FIND(SDL_GetKeyRepeat);
+  SDL_LIBRARY_FIND(SDL_GetKeyState);
   SDL_LIBRARY_FIND(SDL_GetModState);
   SDL_LIBRARY_FIND(SDL_SetModState);
+  SDL_LIBRARY_FIND(SDL_GetKeyName);
   SDL_LIBRARY_FIND(SDL_AudioInit);
   SDL_LIBRARY_FIND(SDL_AudioQuit);
+  SDL_LIBRARY_FIND(SDL_AudioDriverName);
   SDL_LIBRARY_FIND(SDL_OpenAudio);
   SDL_LIBRARY_FIND(SDL_GetAudioStatus);
   SDL_LIBRARY_FIND(SDL_PauseAudio);
+  SDL_LIBRARY_FIND(SDL_LoadWAV_RW);
   SDL_LIBRARY_FIND(SDL_FreeWAV);
   SDL_LIBRARY_FIND(SDL_BuildAudioCVT);
   SDL_LIBRARY_FIND(SDL_ConvertAudio);
@@ -432,7 +571,10 @@ int sdlewInit(void) {
   SDL_LIBRARY_FIND(SDL_CloseAudio);
   SDL_LIBRARY_FIND(SDL_VideoInit);
   SDL_LIBRARY_FIND(SDL_VideoQuit);
+  SDL_LIBRARY_FIND(SDL_VideoDriverName);
+  SDL_LIBRARY_FIND(SDL_GetVideoSurface);
   SDL_LIBRARY_FIND(SDL_VideoModeOK);
+  SDL_LIBRARY_FIND(SDL_SetVideoMode);
   SDL_LIBRARY_FIND(SDL_UpdateRects);
   SDL_LIBRARY_FIND(SDL_UpdateRect);
   SDL_LIBRARY_FIND(SDL_Flip);
@@ -445,22 +587,30 @@ int sdlewInit(void) {
   SDL_LIBRARY_FIND(SDL_MapRGBA);
   SDL_LIBRARY_FIND(SDL_GetRGB);
   SDL_LIBRARY_FIND(SDL_GetRGBA);
+  SDL_LIBRARY_FIND(SDL_CreateRGBSurface);
+  SDL_LIBRARY_FIND(SDL_CreateRGBSurfaceFrom);
   SDL_LIBRARY_FIND(SDL_FreeSurface);
   SDL_LIBRARY_FIND(SDL_LockSurface);
   SDL_LIBRARY_FIND(SDL_UnlockSurface);
+  SDL_LIBRARY_FIND(SDL_LoadBMP_RW);
   SDL_LIBRARY_FIND(SDL_SaveBMP_RW);
   SDL_LIBRARY_FIND(SDL_SetColorKey);
   SDL_LIBRARY_FIND(SDL_SetAlpha);
   SDL_LIBRARY_FIND(SDL_SetClipRect);
   SDL_LIBRARY_FIND(SDL_GetClipRect);
+  SDL_LIBRARY_FIND(SDL_ConvertSurface);
   SDL_LIBRARY_FIND(SDL_UpperBlit);
   SDL_LIBRARY_FIND(SDL_LowerBlit);
   SDL_LIBRARY_FIND(SDL_FillRect);
+  SDL_LIBRARY_FIND(SDL_DisplayFormat);
+  SDL_LIBRARY_FIND(SDL_DisplayFormatAlpha);
+  SDL_LIBRARY_FIND(SDL_CreateYUVOverlay);
   SDL_LIBRARY_FIND(SDL_LockYUVOverlay);
   SDL_LIBRARY_FIND(SDL_UnlockYUVOverlay);
   SDL_LIBRARY_FIND(SDL_DisplayYUVOverlay);
   SDL_LIBRARY_FIND(SDL_FreeYUVOverlay);
   SDL_LIBRARY_FIND(SDL_GL_LoadLibrary);
+  SDL_LIBRARY_FIND(SDL_GL_GetProcAddress);
   SDL_LIBRARY_FIND(SDL_GL_SetAttribute);
   SDL_LIBRARY_FIND(SDL_GL_GetAttribute);
   SDL_LIBRARY_FIND(SDL_GL_SwapBuffers);
@@ -474,6 +624,11 @@ int sdlewInit(void) {
   SDL_LIBRARY_FIND(SDL_WM_ToggleFullScreen);
   SDL_LIBRARY_FIND(SDL_WM_GrabInput);
   SDL_LIBRARY_FIND(SDL_SoftStretch);
+  SDL_LIBRARY_FIND(SDL_RWFromFile);
+  SDL_LIBRARY_FIND(SDL_RWFromFP);
+  SDL_LIBRARY_FIND(SDL_RWFromMem);
+  SDL_LIBRARY_FIND(SDL_RWFromConstMem);
+  SDL_LIBRARY_FIND(SDL_AllocRW);
   SDL_LIBRARY_FIND(SDL_FreeRW);
   SDL_LIBRARY_FIND(SDL_ReadLE16);
   SDL_LIBRARY_FIND(SDL_ReadBE16);
@@ -498,6 +653,7 @@ int sdlewInit(void) {
   SDL_LIBRARY_FIND(SDL_AddTimer);
   SDL_LIBRARY_FIND(SDL_RemoveTimer);
   SDL_LIBRARY_FIND(SDL_NumJoysticks);
+  SDL_LIBRARY_FIND(SDL_JoystickOpen);
   SDL_LIBRARY_FIND(SDL_JoystickOpened);
   SDL_LIBRARY_FIND(SDL_JoystickIndex);
   SDL_LIBRARY_FIND(SDL_JoystickNumAxes);
@@ -512,6 +668,7 @@ int sdlewInit(void) {
   SDL_LIBRARY_FIND(SDL_JoystickGetButton);
   SDL_LIBRARY_FIND(SDL_JoystickClose);
   SDL_LIBRARY_FIND(SDL_CDNumDrives);
+  SDL_LIBRARY_FIND(SDL_CDOpen);
   SDL_LIBRARY_FIND(SDL_CDStatus);
   SDL_LIBRARY_FIND(SDL_CDPlayTracks);
   SDL_LIBRARY_FIND(SDL_CDPlay);
@@ -529,6 +686,7 @@ int sdlewInit(void) {
   SDL_LIBRARY_FIND(SDL_HasSSE2);
   SDL_LIBRARY_FIND(SDL_HasAltiVec);
   SDL_LIBRARY_FIND(SDL_SetError);
+  SDL_LIBRARY_FIND(SDL_GetError);
   SDL_LIBRARY_FIND(SDL_ClearError);
   SDL_LIBRARY_FIND(SDL_Error);
   SDL_LIBRARY_FIND(SDL_GetWMInfo);

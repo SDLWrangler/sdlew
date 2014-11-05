@@ -161,19 +161,19 @@ extern "C" {
 #ifdef HAVE_MALLOC
 #define SDL_malloc	malloc
 #else
-extern DECLSPEC void * SDLCALL SDL_malloc(size_t size);
+typedef void * SDLCALL tSDL_malloc(size_t size);
 #endif
 
 #ifdef HAVE_CALLOC
 #define SDL_calloc	calloc
 #else
-extern DECLSPEC void * SDLCALL SDL_calloc(size_t nmemb, size_t size);
+typedef void * SDLCALL tSDL_calloc(size_t nmemb, size_t size);
 #endif
 
 #ifdef HAVE_REALLOC
 #define SDL_realloc	realloc
 #else
-extern DECLSPEC void * SDLCALL SDL_realloc(void *mem, size_t size);
+typedef void * SDLCALL tSDL_realloc(void *mem, size_t size);
 #endif
 
 #ifdef HAVE_FREE
@@ -215,7 +215,7 @@ typedef void SDLCALL tSDL_free(void *mem);
 #ifdef HAVE_GETENV
 #define SDL_getenv	getenv
 #else
-extern DECLSPEC char * SDLCALL SDL_getenv(const char *name);
+typedef char * SDLCALL tSDL_getenv(const char *name);
 #endif
 
 #ifdef HAVE_PUTENV
@@ -255,7 +255,7 @@ typedef void SDLCALL tSDL_qsort(void *base, size_t nmemb, size_t size,
 #ifdef HAVE_MEMSET
 #define SDL_memset      memset
 #else
-extern DECLSPEC void * SDLCALL SDL_memset(void *dst, int c, size_t len);
+typedef void * SDLCALL tSDL_memset(void *dst, int c, size_t len);
 #endif
 
 #if defined(__GNUC__) && defined(i386)
@@ -316,7 +316,7 @@ do {									  \
 #elif defined(HAVE_BCOPY)
 #define SDL_memcpy(d, s, n)	bcopy((s), (d), (n))
 #else
-extern DECLSPEC void * SDLCALL SDL_memcpy(void *dst, const void *src, size_t len);
+typedef void * SDLCALL tSDL_memcpy(void *dst, const void *src, size_t len);
 #endif
 #endif
 
@@ -367,7 +367,7 @@ do {							\
 } while(0)
 #endif
 #ifndef SDL_revcpy
-extern DECLSPEC void * SDLCALL SDL_revcpy(void *dst, const void *src, size_t len);
+typedef void * SDLCALL tSDL_revcpy(void *dst, const void *src, size_t len);
 #endif
 
 #ifdef HAVE_MEMMOVE
@@ -412,25 +412,25 @@ typedef size_t SDLCALL tSDL_strlcat(char *dst, const char *src, size_t maxlen);
 #ifdef HAVE_STRDUP
 #define SDL_strdup     strdup
 #else
-extern DECLSPEC char * SDLCALL SDL_strdup(const char *string);
+typedef char * SDLCALL tSDL_strdup(const char *string);
 #endif
 
 #ifdef HAVE__STRREV
 #define SDL_strrev      _strrev
 #else
-extern DECLSPEC char * SDLCALL SDL_strrev(char *string);
+typedef char * SDLCALL tSDL_strrev(char *string);
 #endif
 
 #ifdef HAVE__STRUPR
 #define SDL_strupr      _strupr
 #else
-extern DECLSPEC char * SDLCALL SDL_strupr(char *string);
+typedef char * SDLCALL tSDL_strupr(char *string);
 #endif
 
 #ifdef HAVE__STRLWR
 #define SDL_strlwr      _strlwr
 #else
-extern DECLSPEC char * SDLCALL SDL_strlwr(char *string);
+typedef char * SDLCALL tSDL_strlwr(char *string);
 #endif
 
 #ifdef HAVE_STRCHR
@@ -438,7 +438,7 @@ extern DECLSPEC char * SDLCALL SDL_strlwr(char *string);
 #elif defined(HAVE_INDEX)
 #define SDL_strchr      index
 #else
-extern DECLSPEC char * SDLCALL SDL_strchr(const char *string, int c);
+typedef char * SDLCALL tSDL_strchr(const char *string, int c);
 #endif
 
 #ifdef HAVE_STRRCHR
@@ -446,13 +446,13 @@ extern DECLSPEC char * SDLCALL SDL_strchr(const char *string, int c);
 #elif defined(HAVE_RINDEX)
 #define SDL_strrchr     rindex
 #else
-extern DECLSPEC char * SDLCALL SDL_strrchr(const char *string, int c);
+typedef char * SDLCALL tSDL_strrchr(const char *string, int c);
 #endif
 
 #ifdef HAVE_STRSTR
 #define SDL_strstr      strstr
 #else
-extern DECLSPEC char * SDLCALL SDL_strstr(const char *haystack, const char *needle);
+typedef char * SDLCALL tSDL_strstr(const char *haystack, const char *needle);
 #endif
 
 #ifdef HAVE_ITOA
@@ -464,7 +464,7 @@ extern DECLSPEC char * SDLCALL SDL_strstr(const char *haystack, const char *need
 #ifdef HAVE__LTOA
 #define SDL_ltoa        _ltoa
 #else
-extern DECLSPEC char * SDLCALL SDL_ltoa(long value, char *string, int radix);
+typedef char * SDLCALL tSDL_ltoa(long value, char *string, int radix);
 #endif
 
 #ifdef HAVE__UITOA
@@ -476,7 +476,7 @@ extern DECLSPEC char * SDLCALL SDL_ltoa(long value, char *string, int radix);
 #ifdef HAVE__ULTOA
 #define SDL_ultoa       _ultoa
 #else
-extern DECLSPEC char * SDLCALL SDL_ultoa(unsigned long value, char *string, int radix);
+typedef char * SDLCALL tSDL_ultoa(unsigned long value, char *string, int radix);
 #endif
 
 #ifdef HAVE_STRTOL
@@ -606,13 +606,25 @@ typedef size_t SDLCALL tSDL_iconv(SDL_iconv_t cd, const char **inbuf, size_t *in
 /** This function converts a string between encodings in one pass, returning a
  *  string that must be freed with SDL_free() or NULL on error.
  */
-extern DECLSPEC char * SDLCALL SDL_iconv_string(const char *tocode, const char *fromcode, const char *inbuf, size_t inbytesleft);
+typedef char * SDLCALL tSDL_iconv_string(const char *tocode, const char *fromcode, const char *inbuf, size_t inbytesleft);
 #define SDL_iconv_utf8_locale(S)	SDL_iconv_string("", "UTF-8", S, SDL_strlen(S)+1)
 #define SDL_iconv_utf8_ucs2(S)		(Uint16 *)SDL_iconv_string("UCS-2", "UTF-8", S, SDL_strlen(S)+1)
 #define SDL_iconv_utf8_ucs4(S)		(Uint32 *)SDL_iconv_string("UCS-4", "UTF-8", S, SDL_strlen(S)+1)
 
+#ifndef HAVE_MALLOC
+extern tSDL_malloc *SDL_malloc;
+#endif
+#ifndef HAVE_CALLOC
+extern tSDL_calloc *SDL_calloc;
+#endif
+#ifndef HAVE_REALLOC
+extern tSDL_realloc *SDL_realloc;
+#endif
 #ifndef HAVE_FREE
 extern tSDL_free *SDL_free;
+#endif
+#ifndef HAVE_GETENV
+extern tSDL_getenv *SDL_getenv;
 #endif
 #ifndef HAVE_PUTENV
 extern tSDL_putenv *SDL_putenv;
@@ -620,6 +632,13 @@ extern tSDL_putenv *SDL_putenv;
 #ifndef HAVE_QSORT
 extern tSDL_qsort *SDL_qsort;
 #endif
+#ifndef HAVE_MEMSET
+extern tSDL_memset *SDL_memset;
+#endif
+#ifndef HAVE_MEMCPY
+extern tSDL_memcpy *SDL_memcpy;
+#endif
+extern tSDL_revcpy *SDL_revcpy;
 #ifndef HAVE_MEMCMP
 extern tSDL_memcmp *SDL_memcmp;
 #endif
@@ -631,6 +650,33 @@ extern tSDL_strlcpy *SDL_strlcpy;
 #endif
 #ifndef HAVE_STRLCAT
 extern tSDL_strlcat *SDL_strlcat;
+#endif
+#ifndef HAVE_STRDUP
+extern tSDL_strdup *SDL_strdup;
+#endif
+#ifndef HAVE__STRREV
+extern tSDL_strrev *SDL_strrev;
+#endif
+#ifndef HAVE__STRUPR
+extern tSDL_strupr *SDL_strupr;
+#endif
+#ifndef HAVE__STRLWR
+extern tSDL_strlwr *SDL_strlwr;
+#endif
+#ifndef HAVE_STRCHR
+extern tSDL_strchr *SDL_strchr;
+#endif
+#ifndef HAVE_STRRCHR
+extern tSDL_strrchr *SDL_strrchr;
+#endif
+#ifndef HAVE_STRSTR
+extern tSDL_strstr *SDL_strstr;
+#endif
+#ifndef HAVE__LTOA
+extern tSDL_ltoa *SDL_ltoa;
+#endif
+#ifndef HAVE__ULTOA
+extern tSDL_ultoa *SDL_ultoa;
 #endif
 #ifndef HAVE_STRTOL
 extern tSDL_strtol *SDL_strtol;
@@ -672,6 +718,7 @@ extern tSDL_iconv_open *SDL_iconv_open;
 extern tSDL_iconv_close *SDL_iconv_close;
 #endif
 extern tSDL_iconv *SDL_iconv;
+extern tSDL_iconv_string *SDL_iconv_string;
 
 /* Ends C function definitions when using C++ */
 #ifdef __cplusplus

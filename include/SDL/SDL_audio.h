@@ -156,7 +156,7 @@ typedef void SDLCALL tSDL_AudioQuit(void);
  * current audio driver, and returns a pointer to it if the audio driver has
  * been initialized.  It returns NULL if no driver has been initialized.
  */
-extern DECLSPEC char * SDLCALL SDL_AudioDriverName(char *namebuf, int maxlen);
+typedef char * SDLCALL tSDL_AudioDriverName(char *namebuf, int maxlen);
 
 /**
  * This function opens the audio device with the desired parameters, and
@@ -212,7 +212,7 @@ typedef void SDLCALL tSDL_PauseAudio(int pause_on);
  * wave file cannot be opened, uses an unknown data format, or is 
  * corrupt.  Currently raw and MS-ADPCM WAVE files are supported.
  */
-extern DECLSPEC SDL_AudioSpec * SDLCALL SDL_LoadWAV_RW(SDL_RWops *src, int freesrc, SDL_AudioSpec *spec, Uint8 **audio_buf, Uint32 *audio_len);
+typedef SDL_AudioSpec * SDLCALL tSDL_LoadWAV_RW(SDL_RWops *src, int freesrc, SDL_AudioSpec *spec, Uint8 **audio_buf, Uint32 *audio_len);
 
 /** Compatibility convenience function -- loads a WAV from a file */
 #define SDL_LoadWAV(file, spec, audio_buf, audio_len) \
@@ -277,9 +277,11 @@ typedef void SDLCALL tSDL_CloseAudio(void);
 
 extern tSDL_AudioInit *SDL_AudioInit;
 extern tSDL_AudioQuit *SDL_AudioQuit;
+extern tSDL_AudioDriverName *SDL_AudioDriverName;
 extern tSDL_OpenAudio *SDL_OpenAudio;
 extern tSDL_GetAudioStatus *SDL_GetAudioStatus;
 extern tSDL_PauseAudio *SDL_PauseAudio;
+extern tSDL_LoadWAV_RW *SDL_LoadWAV_RW;
 extern tSDL_FreeWAV *SDL_FreeWAV;
 extern tSDL_BuildAudioCVT *SDL_BuildAudioCVT;
 extern tSDL_ConvertAudio *SDL_ConvertAudio;

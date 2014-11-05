@@ -96,16 +96,16 @@ typedef struct SDL_RWops {
 /** @name Functions to create SDL_RWops structures from various data sources */
 /*@{*/
 
-extern DECLSPEC SDL_RWops * SDLCALL SDL_RWFromFile(const char *file, const char *mode);
+typedef SDL_RWops * SDLCALL tSDL_RWFromFile(const char *file, const char *mode);
 
 #ifdef HAVE_STDIO_H
-extern DECLSPEC SDL_RWops * SDLCALL SDL_RWFromFP(FILE *fp, int autoclose);
+typedef SDL_RWops * SDLCALL tSDL_RWFromFP(FILE *fp, int autoclose);
 #endif
 
-extern DECLSPEC SDL_RWops * SDLCALL SDL_RWFromMem(void *mem, int size);
-extern DECLSPEC SDL_RWops * SDLCALL SDL_RWFromConstMem(const void *mem, int size);
+typedef SDL_RWops * SDLCALL tSDL_RWFromMem(void *mem, int size);
+typedef SDL_RWops * SDLCALL tSDL_RWFromConstMem(const void *mem, int size);
 
-extern DECLSPEC SDL_RWops * SDLCALL SDL_AllocRW(void);
+typedef SDL_RWops * SDLCALL tSDL_AllocRW(void);
 typedef void SDLCALL tSDL_FreeRW(SDL_RWops *area);
 
 /*@}*/
@@ -146,6 +146,11 @@ typedef int SDLCALL tSDL_WriteLE64(SDL_RWops *dst, Uint64 value);
 typedef int SDLCALL tSDL_WriteBE64(SDL_RWops *dst, Uint64 value);
 /*@}*/
 
+extern tSDL_RWFromFile *SDL_RWFromFile;
+extern tSDL_RWFromFP *SDL_RWFromFP;
+extern tSDL_RWFromMem *SDL_RWFromMem;
+extern tSDL_RWFromConstMem *SDL_RWFromConstMem;
+extern tSDL_AllocRW *SDL_AllocRW;
 extern tSDL_FreeRW *SDL_FreeRW;
 extern tSDL_ReadLE16 *SDL_ReadLE16;
 extern tSDL_ReadBE16 *SDL_ReadBE16;

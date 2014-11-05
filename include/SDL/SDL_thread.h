@@ -75,7 +75,7 @@ typedef uintptr_t (__cdecl *pfnSDL_CurrentBeginThread) (void *, unsigned,
 typedef void (__cdecl *pfnSDL_CurrentEndThread)(unsigned code);
 #endif
 
-extern DECLSPEC SDL_Thread * SDLCALL SDL_CreateThread(int (SDLCALL *fn)(void *), void *data, pfnSDL_CurrentBeginThread pfnBeginThread, pfnSDL_CurrentEndThread pfnEndThread);
+typedef SDL_Thread * SDLCALL tSDL_CreateThread(int (SDLCALL *fn)(void *), void *data, pfnSDL_CurrentBeginThread pfnBeginThread, pfnSDL_CurrentEndThread pfnEndThread);
 
 #ifdef __OS2__
 #define SDL_CreateThread(fn, data) SDL_CreateThread(fn, data, _beginthread, _endthread)
@@ -85,7 +85,7 @@ extern DECLSPEC SDL_Thread * SDLCALL SDL_CreateThread(int (SDLCALL *fn)(void *),
 #define SDL_CreateThread(fn, data) SDL_CreateThread(fn, data, _beginthreadex, _endthreadex)
 #endif
 #else
-extern DECLSPEC SDL_Thread * SDLCALL SDL_CreateThread(int (SDLCALL *fn)(void *), void *data);
+typedef SDL_Thread * SDLCALL tSDL_CreateThread(int (SDLCALL *fn)(void *), void *data);
 #endif
 
 /** Get the 32-bit thread identifier for the current thread */
@@ -106,6 +106,8 @@ typedef void SDLCALL tSDL_WaitThread(SDL_Thread *thread, int *status);
 typedef void SDLCALL tSDL_KillThread(SDL_Thread *thread);
 
 
+extern tSDL_CreateThread *SDL_CreateThread;
+extern tSDL_CreateThread *SDL_CreateThread;
 extern tSDL_ThreadID *SDL_ThreadID;
 extern tSDL_GetThreadID *SDL_GetThreadID;
 extern tSDL_WaitThread *SDL_WaitThread;

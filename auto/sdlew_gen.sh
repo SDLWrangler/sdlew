@@ -16,13 +16,13 @@ echo "Generating sdlew headers..."
 for header in $INCLUDE_DIR/*; do
   filename=`basename $header`
   cat $header \
-    | sed -r 's/extern DECLSPEC ([a-z0-9_]+) SDLCALL /typedef \1 SDLCALL t/i' \
+    | sed -r 's/extern DECLSPEC ([a-z0-9_]+(\s\*)?) SDLCALL /typedef \1 SDLCALL t/i' \
     > $DIR/include/SDL/$filename
 
   line_num=`cat $DIR/include/SDL/$filename | grep -n "Ends C function" | cut -d : -f 1`
   if [ ! -z "$line_num" ]; then
-    functions=`grep -E 'typedef [A-Za-z0-9_]+ SDLCALL' $DIR/include/SDL/$filename \
-      | sed -r 's/typedef [A-Za-z0-9_]+ SDLCALL t([a-z0-9_]+).*/extern t\1 *\1;/i'`
+    functions=`grep -E 'typedef [A-Za-z0-9_ \*]+ SDLCALL' $DIR/include/SDL/$filename \
+      | sed -r 's/typedef [A-Za-z0-9_ \*]+ SDLCALL t([a-z0-9_]+(\s\*)?).*/extern t\1 *\1;/i'`
     functions=`echo "${functions}" | sed -e 's/[\/&]/\\\&/g'`
     echo "$functions" | while read function; do
       sed -ri "${line_num}s/(.*)/${function}\n\1/" $DIR/include/SDL/$filename
@@ -38,7 +38,7 @@ for header in $INCLUDE_DIR/*; do
                    | grep -A 8 "$check\$" \
                    | grep -v struct \
                    | grep 'typedef' \
-                   | sed -r 's/typedef [a-z0-9_]+ SDLCALL ([a-z0-9_]+).*/\1/i'`
+                   | sed -r 's/typedef [a-z0-9_ \*]+ SDLCALL ([a-z0-9_]+).*/\1/i'`
       full_check=`echo "${check}" | sed -e 's/[\/&]/\\\&/g'`
       if [ ! -z "`echo $full_check | grep defined`"  ]; then
         full_check="#if !($full_check)"

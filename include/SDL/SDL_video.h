@@ -281,7 +281,7 @@ typedef void SDLCALL tSDL_VideoQuit(void);
  * video driver, and returns a pointer to it if the video driver has
  * been initialized.  It returns NULL if no driver has been initialized.
  */
-extern DECLSPEC char * SDLCALL SDL_VideoDriverName(char *namebuf, int maxlen);
+typedef char * SDLCALL tSDL_VideoDriverName(char *namebuf, int maxlen);
 
 /**
  * This function returns a pointer to the current display surface.
@@ -289,7 +289,7 @@ extern DECLSPEC char * SDLCALL SDL_VideoDriverName(char *namebuf, int maxlen);
  * function returns the publicly visible surface, not the real video
  * surface.
  */
-extern DECLSPEC SDL_Surface * SDLCALL SDL_GetVideoSurface(void);
+typedef SDL_Surface * SDLCALL tSDL_GetVideoSurface(void);
 
 /**
  * This function returns a read-only pointer to information about the
@@ -381,7 +381,7 @@ extern DECLSPEC SDL_Rect ** SDLCALL SDL_ListModes(SDL_PixelFormat *format, Uint3
  * SDL will fall back to reduced functionality if the exact flags you wanted
  * are not available.
  */
-extern DECLSPEC SDL_Surface * SDLCALL SDL_SetVideoMode
+typedef SDL_Surface * SDLCALL tSDL_SetVideoMode
 			(int width, int height, int bpp, Uint32 flags);
 
 /** @name SDL_Update Functions
@@ -550,11 +550,11 @@ typedef void SDLCALL tSDL_GetRGBA(Uint32 pixel,
  * reason the surface could not be placed in video memory, it will not have
  * the SDL_HWSURFACE flag set, and will be created in system memory instead.
  */
-extern DECLSPEC SDL_Surface * SDLCALL SDL_CreateRGBSurface
+typedef SDL_Surface * SDLCALL tSDL_CreateRGBSurface
 			(Uint32 flags, int width, int height, int depth, 
 			Uint32 Rmask, Uint32 Gmask, Uint32 Bmask, Uint32 Amask);
 /** @sa SDL_CreateRGBSurface */
-extern DECLSPEC SDL_Surface * SDLCALL SDL_CreateRGBSurfaceFrom(void *pixels,
+typedef SDL_Surface * SDLCALL tSDL_CreateRGBSurfaceFrom(void *pixels,
 			int width, int height, int depth, int pitch,
 			Uint32 Rmask, Uint32 Gmask, Uint32 Bmask, Uint32 Amask);
 typedef void SDLCALL tSDL_FreeSurface(SDL_Surface *surface);
@@ -586,7 +586,7 @@ typedef void SDLCALL tSDL_UnlockSurface(SDL_Surface *surface);
  * Returns the new surface, or NULL if there was an error.
  * The new surface should be freed with SDL_FreeSurface().
  */
-extern DECLSPEC SDL_Surface * SDLCALL SDL_LoadBMP_RW(SDL_RWops *src, int freesrc);
+typedef SDL_Surface * SDLCALL tSDL_LoadBMP_RW(SDL_RWops *src, int freesrc);
 
 /** Convenience macro -- load a surface from a file */
 #define SDL_LoadBMP(file)	SDL_LoadBMP_RW(SDL_RWFromFile(file, "rb"), 1)
@@ -665,7 +665,7 @@ typedef void SDLCALL tSDL_GetClipRect(SDL_Surface *surface, SDL_Rect *rect);
  *
  * This function is used internally by SDL_DisplayFormat().
  */
-extern DECLSPEC SDL_Surface * SDLCALL SDL_ConvertSurface
+typedef SDL_Surface * SDLCALL tSDL_ConvertSurface
 			(SDL_Surface *src, SDL_PixelFormat *fmt, Uint32 flags);
 
 /**
@@ -778,7 +778,7 @@ typedef int SDLCALL tSDL_FillRect
  *
  * If the conversion fails or runs out of memory, it returns NULL
  */
-extern DECLSPEC SDL_Surface * SDLCALL SDL_DisplayFormat(SDL_Surface *surface);
+typedef SDL_Surface * SDLCALL tSDL_DisplayFormat(SDL_Surface *surface);
 
 /**
  * This function takes a surface and copies it to a new surface of the
@@ -792,7 +792,7 @@ extern DECLSPEC SDL_Surface * SDLCALL SDL_DisplayFormat(SDL_Surface *surface);
  *
  * If the conversion fails or runs out of memory, it returns NULL
  */
-extern DECLSPEC SDL_Surface * SDLCALL SDL_DisplayFormatAlpha(SDL_Surface *surface);
+typedef SDL_Surface * SDLCALL tSDL_DisplayFormatAlpha(SDL_Surface *surface);
 
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
@@ -804,7 +804,7 @@ extern DECLSPEC SDL_Surface * SDLCALL SDL_DisplayFormatAlpha(SDL_Surface *surfac
  *  the contents of the display surface underneath the area where the overlay
  *  is shown is undefined - it may be overwritten with the converted YUV data.
  */
-extern DECLSPEC SDL_Overlay * SDLCALL SDL_CreateYUVOverlay(int width, int height,
+typedef SDL_Overlay * SDLCALL tSDL_CreateYUVOverlay(int width, int height,
 				Uint32 format, SDL_Surface *display);
 
 /** Lock an overlay for direct access, and unlock it when you are done */
@@ -839,7 +839,7 @@ typedef int SDLCALL tSDL_GL_LoadLibrary(const char *path);
 /**
  * Get the address of a GL function
  */
-extern DECLSPEC void * SDLCALL SDL_GL_GetProcAddress(const char* proc);
+typedef void * SDLCALL tSDL_GL_GetProcAddress(const char* proc);
 
 /**
  * Set an attribute of the OpenGL subsystem before intialization.
@@ -944,7 +944,10 @@ typedef int SDLCALL tSDL_SoftStretch(SDL_Surface *src, SDL_Rect *srcrect,
                     
 extern tSDL_VideoInit *SDL_VideoInit;
 extern tSDL_VideoQuit *SDL_VideoQuit;
+extern tSDL_VideoDriverName *SDL_VideoDriverName;
+extern tSDL_GetVideoSurface *SDL_GetVideoSurface;
 extern tSDL_VideoModeOK *SDL_VideoModeOK;
+extern tSDL_SetVideoMode *SDL_SetVideoMode;
 extern tSDL_UpdateRects *SDL_UpdateRects;
 extern tSDL_UpdateRect *SDL_UpdateRect;
 extern tSDL_Flip *SDL_Flip;
@@ -957,22 +960,30 @@ extern tSDL_MapRGB *SDL_MapRGB;
 extern tSDL_MapRGBA *SDL_MapRGBA;
 extern tSDL_GetRGB *SDL_GetRGB;
 extern tSDL_GetRGBA *SDL_GetRGBA;
+extern tSDL_CreateRGBSurface *SDL_CreateRGBSurface;
+extern tSDL_CreateRGBSurfaceFrom *SDL_CreateRGBSurfaceFrom;
 extern tSDL_FreeSurface *SDL_FreeSurface;
 extern tSDL_LockSurface *SDL_LockSurface;
 extern tSDL_UnlockSurface *SDL_UnlockSurface;
+extern tSDL_LoadBMP_RW *SDL_LoadBMP_RW;
 extern tSDL_SaveBMP_RW *SDL_SaveBMP_RW;
 extern tSDL_SetColorKey *SDL_SetColorKey;
 extern tSDL_SetAlpha *SDL_SetAlpha;
 extern tSDL_SetClipRect *SDL_SetClipRect;
 extern tSDL_GetClipRect *SDL_GetClipRect;
+extern tSDL_ConvertSurface *SDL_ConvertSurface;
 extern tSDL_UpperBlit *SDL_UpperBlit;
 extern tSDL_LowerBlit *SDL_LowerBlit;
 extern tSDL_FillRect *SDL_FillRect;
+extern tSDL_DisplayFormat *SDL_DisplayFormat;
+extern tSDL_DisplayFormatAlpha *SDL_DisplayFormatAlpha;
+extern tSDL_CreateYUVOverlay *SDL_CreateYUVOverlay;
 extern tSDL_LockYUVOverlay *SDL_LockYUVOverlay;
 extern tSDL_UnlockYUVOverlay *SDL_UnlockYUVOverlay;
 extern tSDL_DisplayYUVOverlay *SDL_DisplayYUVOverlay;
 extern tSDL_FreeYUVOverlay *SDL_FreeYUVOverlay;
 extern tSDL_GL_LoadLibrary *SDL_GL_LoadLibrary;
+extern tSDL_GL_GetProcAddress *SDL_GL_GetProcAddress;
 extern tSDL_GL_SetAttribute *SDL_GL_SetAttribute;
 extern tSDL_GL_GetAttribute *SDL_GL_GetAttribute;
 extern tSDL_GL_SwapBuffers *SDL_GL_SwapBuffers;
