@@ -611,6 +611,68 @@ extern DECLSPEC char * SDLCALL SDL_iconv_string(const char *tocode, const char *
 #define SDL_iconv_utf8_ucs2(S)		(Uint16 *)SDL_iconv_string("UCS-2", "UTF-8", S, SDL_strlen(S)+1)
 #define SDL_iconv_utf8_ucs4(S)		(Uint32 *)SDL_iconv_string("UCS-4", "UTF-8", S, SDL_strlen(S)+1)
 
+#ifndef HAVE_FREE
+extern tSDL_free *SDL_free;
+#endif
+#ifndef HAVE_PUTENV
+extern tSDL_putenv *SDL_putenv;
+#endif
+#ifndef HAVE_QSORT
+extern tSDL_qsort *SDL_qsort;
+#endif
+#ifndef HAVE_MEMCMP
+extern tSDL_memcmp *SDL_memcmp;
+#endif
+#ifndef HAVE_STRLEN
+extern tSDL_strlen *SDL_strlen;
+#endif
+#ifndef HAVE_STRLCPY
+extern tSDL_strlcpy *SDL_strlcpy;
+#endif
+#ifndef HAVE_STRLCAT
+extern tSDL_strlcat *SDL_strlcat;
+#endif
+#ifndef HAVE_STRTOL
+extern tSDL_strtol *SDL_strtol;
+#endif
+#ifndef HAVE_STRTOLL
+extern tSDL_strtoll *SDL_strtoll;
+#endif
+#ifndef HAVE_STRTOULL
+extern tSDL_strtoull *SDL_strtoull;
+#endif
+#ifndef HAVE_STRTOD
+extern tSDL_strtod *SDL_strtod;
+#endif
+#ifndef HAVE_STRCMP
+extern tSDL_strcmp *SDL_strcmp;
+#endif
+#ifndef HAVE_STRNCMP
+extern tSDL_strncmp *SDL_strncmp;
+#endif
+#ifndef HAVE_STRCASECMP
+extern tSDL_strcasecmp *SDL_strcasecmp;
+#endif
+#ifndef HAVE_STRNCASECMP
+extern tSDL_strncasecmp *SDL_strncasecmp;
+#endif
+#ifndef HAVE_SSCANF
+extern tSDL_sscanf *SDL_sscanf;
+#endif
+#ifndef HAVE_SNPRINTF
+extern tSDL_snprintf *SDL_snprintf;
+#endif
+#ifndef HAVE_VSNPRINTF
+extern tSDL_vsnprintf *SDL_vsnprintf;
+#endif
+#if !(defined(HAVE_ICONV) && defined(HAVE_ICONV_H))
+extern tSDL_iconv_open *SDL_iconv_open;
+#endif
+#if !(defined(HAVE_ICONV) && defined(HAVE_ICONV_H))
+extern tSDL_iconv_close *SDL_iconv_close;
+#endif
+extern tSDL_iconv *SDL_iconv;
+
 /* Ends C function definitions when using C++ */
 #ifdef __cplusplus
 }

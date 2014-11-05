@@ -54,6 +54,8 @@ extern "C" {
 typedef Uint8 SDLCALL tSDL_GetAppState(void);
 
 
+extern tSDL_GetAppState *SDL_GetAppState;
+
 /* Ends C function definitions when using C++ */
 #ifdef __cplusplus
 }

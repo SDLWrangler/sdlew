@@ -275,6 +275,19 @@ typedef void SDLCALL tSDL_UnlockAudio(void);
 typedef void SDLCALL tSDL_CloseAudio(void);
 
 
+extern tSDL_AudioInit *SDL_AudioInit;
+extern tSDL_AudioQuit *SDL_AudioQuit;
+extern tSDL_OpenAudio *SDL_OpenAudio;
+extern tSDL_GetAudioStatus *SDL_GetAudioStatus;
+extern tSDL_PauseAudio *SDL_PauseAudio;
+extern tSDL_FreeWAV *SDL_FreeWAV;
+extern tSDL_BuildAudioCVT *SDL_BuildAudioCVT;
+extern tSDL_ConvertAudio *SDL_ConvertAudio;
+extern tSDL_MixAudio *SDL_MixAudio;
+extern tSDL_LockAudio *SDL_LockAudio;
+extern tSDL_UnlockAudio *SDL_UnlockAudio;
+extern tSDL_CloseAudio *SDL_CloseAudio;
+
 /* Ends C function definitions when using C++ */
 #ifdef __cplusplus
 }

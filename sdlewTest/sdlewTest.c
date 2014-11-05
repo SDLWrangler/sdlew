@@ -1,5 +1,7 @@
 #include <stdlib.h>
+#include <stdio.h>
 #include "sdlew.h"
+#include "SDL/SDL.h"
 
 int main(int argc, char **argv) {
   if (sdlewInit() == SDLEW_SUCCESS) {

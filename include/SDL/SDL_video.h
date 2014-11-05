@@ -942,6 +942,51 @@ typedef SDL_GrabMode SDLCALL tSDL_WM_GrabInput(SDL_GrabMode mode);
 typedef int SDLCALL tSDL_SoftStretch(SDL_Surface *src, SDL_Rect *srcrect,
                                     SDL_Surface *dst, SDL_Rect *dstrect);
                     
+extern tSDL_VideoInit *SDL_VideoInit;
+extern tSDL_VideoQuit *SDL_VideoQuit;
+extern tSDL_VideoModeOK *SDL_VideoModeOK;
+extern tSDL_UpdateRects *SDL_UpdateRects;
+extern tSDL_UpdateRect *SDL_UpdateRect;
+extern tSDL_Flip *SDL_Flip;
+extern tSDL_SetGamma *SDL_SetGamma;
+extern tSDL_SetGammaRamp *SDL_SetGammaRamp;
+extern tSDL_GetGammaRamp *SDL_GetGammaRamp;
+extern tSDL_SetColors *SDL_SetColors;
+extern tSDL_SetPalette *SDL_SetPalette;
+extern tSDL_MapRGB *SDL_MapRGB;
+extern tSDL_MapRGBA *SDL_MapRGBA;
+extern tSDL_GetRGB *SDL_GetRGB;
+extern tSDL_GetRGBA *SDL_GetRGBA;
+extern tSDL_FreeSurface *SDL_FreeSurface;
+extern tSDL_LockSurface *SDL_LockSurface;
+extern tSDL_UnlockSurface *SDL_UnlockSurface;
+extern tSDL_SaveBMP_RW *SDL_SaveBMP_RW;
+extern tSDL_SetColorKey *SDL_SetColorKey;
+extern tSDL_SetAlpha *SDL_SetAlpha;
+extern tSDL_SetClipRect *SDL_SetClipRect;
+extern tSDL_GetClipRect *SDL_GetClipRect;
+extern tSDL_UpperBlit *SDL_UpperBlit;
+extern tSDL_LowerBlit *SDL_LowerBlit;
+extern tSDL_FillRect *SDL_FillRect;
+extern tSDL_LockYUVOverlay *SDL_LockYUVOverlay;
+extern tSDL_UnlockYUVOverlay *SDL_UnlockYUVOverlay;
+extern tSDL_DisplayYUVOverlay *SDL_DisplayYUVOverlay;
+extern tSDL_FreeYUVOverlay *SDL_FreeYUVOverlay;
+extern tSDL_GL_LoadLibrary *SDL_GL_LoadLibrary;
+extern tSDL_GL_SetAttribute *SDL_GL_SetAttribute;
+extern tSDL_GL_GetAttribute *SDL_GL_GetAttribute;
+extern tSDL_GL_SwapBuffers *SDL_GL_SwapBuffers;
+extern tSDL_GL_UpdateRects *SDL_GL_UpdateRects;
+extern tSDL_GL_Lock *SDL_GL_Lock;
+extern tSDL_GL_Unlock *SDL_GL_Unlock;
+extern tSDL_WM_SetCaption *SDL_WM_SetCaption;
+extern tSDL_WM_GetCaption *SDL_WM_GetCaption;
+extern tSDL_WM_SetIcon *SDL_WM_SetIcon;
+extern tSDL_WM_IconifyWindow *SDL_WM_IconifyWindow;
+extern tSDL_WM_ToggleFullScreen *SDL_WM_ToggleFullScreen;
+extern tSDL_WM_GrabInput *SDL_WM_GrabInput;
+extern tSDL_SoftStretch *SDL_SoftStretch;
+
 /* Ends C function definitions when using C++ */
 #ifdef __cplusplus
 }

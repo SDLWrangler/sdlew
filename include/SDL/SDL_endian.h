@@ -205,6 +205,8 @@ static __inline__ Uint64 SDL_Swap64(Uint64 x)
 #endif
 /*@}*/
 
+
+
 /* Ends C function definitions when using C++ */
 #ifdef __cplusplus
 }

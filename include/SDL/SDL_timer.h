@@ -116,6 +116,12 @@ typedef SDL_bool SDLCALL tSDL_RemoveTimer(SDL_TimerID t);
 
 /*@}*/
 
+extern tSDL_GetTicks *SDL_GetTicks;
+extern tSDL_Delay *SDL_Delay;
+extern tSDL_SetTimer *SDL_SetTimer;
+extern tSDL_AddTimer *SDL_AddTimer;
+extern tSDL_RemoveTimer *SDL_RemoveTimer;
+
 /* Ends C function definitions when using C++ */
 #ifdef __cplusplus
 }

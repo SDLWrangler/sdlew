@@ -106,6 +106,11 @@ typedef void SDLCALL tSDL_WaitThread(SDL_Thread *thread, int *status);
 typedef void SDLCALL tSDL_KillThread(SDL_Thread *thread);
 
 
+extern tSDL_ThreadID *SDL_ThreadID;
+extern tSDL_GetThreadID *SDL_GetThreadID;
+extern tSDL_WaitThread *SDL_WaitThread;
+extern tSDL_KillThread *SDL_KillThread;
+
 /* Ends C function definitions when using C++ */
 #ifdef __cplusplus
 }

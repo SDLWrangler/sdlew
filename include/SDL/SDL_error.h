@@ -63,6 +63,10 @@ typedef enum {
 typedef void SDLCALL tSDL_Error(SDL_errorcode code);
 /*@}*/
 
+extern tSDL_SetError *SDL_SetError;
+extern tSDL_ClearError *SDL_ClearError;
+extern tSDL_Error *SDL_Error;
+
 /* Ends C function definitions when using C++ */
 #ifdef __cplusplus
 }

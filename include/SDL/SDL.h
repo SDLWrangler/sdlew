@@ -92,6 +92,12 @@ typedef Uint32 SDLCALL tSDL_WasInit(Uint32 flags);
  */
 typedef void SDLCALL tSDL_Quit(void);
 
+extern tSDL_Init *SDL_Init;
+extern tSDL_InitSubSystem *SDL_InitSubSystem;
+extern tSDL_QuitSubSystem *SDL_QuitSubSystem;
+extern tSDL_WasInit *SDL_WasInit;
+extern tSDL_Quit *SDL_Quit;
+
 /* Ends C function definitions when using C++ */
 #ifdef __cplusplus
 }

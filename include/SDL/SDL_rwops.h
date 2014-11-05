@@ -146,6 +146,20 @@ typedef int SDLCALL tSDL_WriteLE64(SDL_RWops *dst, Uint64 value);
 typedef int SDLCALL tSDL_WriteBE64(SDL_RWops *dst, Uint64 value);
 /*@}*/
 
+extern tSDL_FreeRW *SDL_FreeRW;
+extern tSDL_ReadLE16 *SDL_ReadLE16;
+extern tSDL_ReadBE16 *SDL_ReadBE16;
+extern tSDL_ReadLE32 *SDL_ReadLE32;
+extern tSDL_ReadBE32 *SDL_ReadBE32;
+extern tSDL_ReadLE64 *SDL_ReadLE64;
+extern tSDL_ReadBE64 *SDL_ReadBE64;
+extern tSDL_WriteLE16 *SDL_WriteLE16;
+extern tSDL_WriteBE16 *SDL_WriteBE16;
+extern tSDL_WriteLE32 *SDL_WriteLE32;
+extern tSDL_WriteBE32 *SDL_WriteBE32;
+extern tSDL_WriteLE64 *SDL_WriteLE64;
+extern tSDL_WriteBE64 *SDL_WriteBE64;
+
 /* Ends C function definitions when using C++ */
 #ifdef __cplusplus
 }

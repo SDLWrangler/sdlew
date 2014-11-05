@@ -126,6 +126,12 @@ typedef void SDLCALL tSDL_SetModState(SDLMod modstate);
 extern DECLSPEC char * SDLCALL SDL_GetKeyName(SDLKey key);
 
 
+extern tSDL_EnableUNICODE *SDL_EnableUNICODE;
+extern tSDL_EnableKeyRepeat *SDL_EnableKeyRepeat;
+extern tSDL_GetKeyRepeat *SDL_GetKeyRepeat;
+extern tSDL_GetModState *SDL_GetModState;
+extern tSDL_SetModState *SDL_SetModState;
+
 /* Ends C function definitions when using C++ */
 #ifdef __cplusplus
 }

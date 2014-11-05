@@ -60,6 +60,15 @@ typedef SDL_bool SDLCALL tSDL_HasSSE2(void);
 /** This function returns true if the CPU has AltiVec features */
 typedef SDL_bool SDLCALL tSDL_HasAltiVec(void);
 
+extern tSDL_HasRDTSC *SDL_HasRDTSC;
+extern tSDL_HasMMX *SDL_HasMMX;
+extern tSDL_HasMMXExt *SDL_HasMMXExt;
+extern tSDL_Has3DNow *SDL_Has3DNow;
+extern tSDL_Has3DNowExt *SDL_Has3DNowExt;
+extern tSDL_HasSSE *SDL_HasSSE;
+extern tSDL_HasSSE2 *SDL_HasSSE2;
+extern tSDL_HasAltiVec *SDL_HasAltiVec;
+
 /* Ends C function definitions when using C++ */
 #ifdef __cplusplus
 }

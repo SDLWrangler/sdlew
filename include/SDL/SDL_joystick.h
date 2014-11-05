@@ -178,6 +178,21 @@ typedef Uint8 SDLCALL tSDL_JoystickGetButton(SDL_Joystick *joystick, int button)
 typedef void SDLCALL tSDL_JoystickClose(SDL_Joystick *joystick);
 
 
+extern tSDL_NumJoysticks *SDL_NumJoysticks;
+extern tSDL_JoystickOpened *SDL_JoystickOpened;
+extern tSDL_JoystickIndex *SDL_JoystickIndex;
+extern tSDL_JoystickNumAxes *SDL_JoystickNumAxes;
+extern tSDL_JoystickNumBalls *SDL_JoystickNumBalls;
+extern tSDL_JoystickNumHats *SDL_JoystickNumHats;
+extern tSDL_JoystickNumButtons *SDL_JoystickNumButtons;
+extern tSDL_JoystickUpdate *SDL_JoystickUpdate;
+extern tSDL_JoystickEventState *SDL_JoystickEventState;
+extern tSDL_JoystickGetAxis *SDL_JoystickGetAxis;
+extern tSDL_JoystickGetHat *SDL_JoystickGetHat;
+extern tSDL_JoystickGetBall *SDL_JoystickGetBall;
+extern tSDL_JoystickGetButton *SDL_JoystickGetButton;
+extern tSDL_JoystickClose *SDL_JoystickClose;
+
 /* Ends C function definitions when using C++ */
 #ifdef __cplusplus
 }

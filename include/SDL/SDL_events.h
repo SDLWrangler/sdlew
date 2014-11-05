@@ -347,6 +347,15 @@ typedef SDL_EventFilter SDLCALL tSDL_GetEventFilter(void);
 */
 typedef Uint8 SDLCALL tSDL_EventState(Uint8 type, int state);
 
+extern tSDL_PumpEvents *SDL_PumpEvents;
+extern tSDL_PeepEvents *SDL_PeepEvents;
+extern tSDL_PollEvent *SDL_PollEvent;
+extern tSDL_WaitEvent *SDL_WaitEvent;
+extern tSDL_PushEvent *SDL_PushEvent;
+extern tSDL_SetEventFilter *SDL_SetEventFilter;
+extern tSDL_GetEventFilter *SDL_GetEventFilter;
+extern tSDL_EventState *SDL_EventState;
+
 /* Ends C function definitions when using C++ */
 #ifdef __cplusplus
 }

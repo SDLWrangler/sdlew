@@ -82,6 +82,8 @@ typedef struct SDL_version {
  */
 extern DECLSPEC const SDL_version * SDLCALL SDL_Linked_Version(void);
 
+
+
 /* Ends C function definitions when using C++ */
 #ifdef __cplusplus
 }

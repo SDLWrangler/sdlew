@@ -167,6 +167,21 @@ typedef int SDLCALL tSDL_CondWaitTimeout(SDL_cond *cond, SDL_mutex *mutex, Uint3
 
 /*@}*/
 
+extern tSDL_mutexP *SDL_mutexP;
+extern tSDL_mutexV *SDL_mutexV;
+extern tSDL_DestroyMutex *SDL_DestroyMutex;
+extern tSDL_DestroySemaphore *SDL_DestroySemaphore;
+extern tSDL_SemWait *SDL_SemWait;
+extern tSDL_SemTryWait *SDL_SemTryWait;
+extern tSDL_SemWaitTimeout *SDL_SemWaitTimeout;
+extern tSDL_SemPost *SDL_SemPost;
+extern tSDL_SemValue *SDL_SemValue;
+extern tSDL_DestroyCond *SDL_DestroyCond;
+extern tSDL_CondSignal *SDL_CondSignal;
+extern tSDL_CondBroadcast *SDL_CondBroadcast;
+extern tSDL_CondWait *SDL_CondWait;
+extern tSDL_CondWaitTimeout *SDL_CondWaitTimeout;
+
 /* Ends C function definitions when using C++ */
 #ifdef __cplusplus
 }

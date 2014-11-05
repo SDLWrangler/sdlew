@@ -217,6 +217,8 @@ typedef struct SDL_SysWMinfo {
 typedef int SDLCALL tSDL_GetWMInfo(SDL_SysWMinfo *info);
 
 
+extern tSDL_GetWMInfo *SDL_GetWMInfo;
+
 /* Ends C function definitions when using C++ */
 #ifdef __cplusplus
 }

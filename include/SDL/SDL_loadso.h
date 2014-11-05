@@ -69,6 +69,8 @@ extern DECLSPEC void * SDLCALL SDL_LoadFunction(void *handle, const char *name);
 /** Unload a shared object from memory */
 typedef void SDLCALL tSDL_UnloadObject(void *handle);
 
+extern tSDL_UnloadObject *SDL_UnloadObject;
+
 /* Ends C function definitions when using C++ */
 #ifdef __cplusplus
 }

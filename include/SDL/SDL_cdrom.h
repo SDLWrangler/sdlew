@@ -193,6 +193,16 @@ typedef int SDLCALL tSDL_CDEject(SDL_CD *cdrom);
 typedef void SDLCALL tSDL_CDClose(SDL_CD *cdrom);
 
 
+extern tSDL_CDNumDrives *SDL_CDNumDrives;
+extern tSDL_CDStatus *SDL_CDStatus;
+extern tSDL_CDPlayTracks *SDL_CDPlayTracks;
+extern tSDL_CDPlay *SDL_CDPlay;
+extern tSDL_CDPause *SDL_CDPause;
+extern tSDL_CDResume *SDL_CDResume;
+extern tSDL_CDStop *SDL_CDStop;
+extern tSDL_CDEject *SDL_CDEject;
+extern tSDL_CDClose *SDL_CDClose;
+
 /* Ends C function definitions when using C++ */
 #ifdef __cplusplus
 }

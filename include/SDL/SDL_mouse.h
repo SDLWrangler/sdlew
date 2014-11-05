@@ -134,6 +134,13 @@ typedef int SDLCALL tSDL_ShowCursor(int toggle);
 #define SDL_BUTTON_X2MASK	SDL_BUTTON(SDL_BUTTON_X2)
 /*@}*/
 
+extern tSDL_GetMouseState *SDL_GetMouseState;
+extern tSDL_GetRelativeMouseState *SDL_GetRelativeMouseState;
+extern tSDL_WarpMouse *SDL_WarpMouse;
+extern tSDL_SetCursor *SDL_SetCursor;
+extern tSDL_FreeCursor *SDL_FreeCursor;
+extern tSDL_ShowCursor *SDL_ShowCursor;
+
 /* Ends C function definitions when using C++ */
 #ifdef __cplusplus
 }
