@@ -700,5 +700,15 @@ int sdlewInit(void) {
   SDL_LIBRARY_FIND(SDL_GetWMInfo);
 
   result = SDLEW_SUCCESS;
+
+  /* Currently we only support SDL-1.2 only. */
+  {
+    const SDL_version *version = SDL_Linked_Version();
+    if(version->major > 1 || version->minor > 2) {
+      result = SDLEW_ERROR_VERSION;
+    }
+  }
+
+
   return result;
 }

@@ -84,6 +84,7 @@ enum {
   SDLEW_SUCCESS = 0,
   SDLEW_ERROR_OPEN_FAILED = -1,
   SDLEW_ERROR_ATEXIT_FAILED = -2,
+  SDLEW_ERROR_VERSION = -3,
 };
 
 int sdlewInit(void);
@@ -221,6 +222,16 @@ echo "$content" | sed -r 's/extern t([a-z0-9_]+).*/  SDL_LIBRARY_FIND(\1);/gi' >
 cat << EOF >> $DIR/src/sdlew.c
 
   result = SDLEW_SUCCESS;
+
+  /* Currently we only support SDL-1.2 only. */
+  {
+    const SDL_version *version = SDL_Linked_Version();
+    if(version->major > 1 || version->minor > 2) {
+      result = SDLEW_ERROR_VERSION;
+    }
+  }
+
+
   return result;
 }
 EOF
