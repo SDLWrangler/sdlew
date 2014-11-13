@@ -1,40 +1,59 @@
 #!/bin/bash
 
-INCLUDE_DIR="/usr/include/SDL"
+SDL="SDL2"
+INCLUDE_DIR="/usr/include/${SDL}"
 SCRIPT=`realpath -s $0`
 DIR=`dirname $SCRIPT`
 DIR=`dirname $DIR`
 
-mkdir -p $DIR/include/SDL
+mkdir -p $DIR/include/${SDL}
 mkdir -p $DIR/src
 
-rm -rf $DIR/include/SDL/*.h
+rm -rf $DIR/include/${SDL}/*.h
 rm -rf $DIR/src/sdlew.c
 
 echo "Generating sdlew headers..."
 
+UNSUPPORTED="SDL_MemoryBarrierRelease SDL_MemoryBarrierAcquire SDL_AtomicCAS SDL_AtomicCASPtr \
+  SDL_iPhoneSetAnimationCallback SDL_iPhoneSetEventPump SDL_AndroidGetJNIEnv SDL_AndroidGetActivity \
+  SDL_AndroidGetActivity SDL_AndroidGetInternalStoragePath SDL_AndroidGetExternalStorageState \
+  SDL_AndroidGetExternalStoragePath SDL_CreateShapedWindow SDL_IsShapedWindow tSDL_SetWindowShape \
+  SDL_GetShapedWindowMode"
+
 for header in $INCLUDE_DIR/*; do
   filename=`basename $header`
   cat $header \
-    | sed -r 's/extern DECLSPEC ((const )?[a-z0-9_]+(\s\*)?) SDLCALL /typedef \1 SDLCALL t/i' \
-    > $DIR/include/SDL/$filename
+    | sed -r 's/extern DECLSPEC ((const )?[a-z0-9_]+(\s\*)?)\s?SDLCALL /typedef \1 SDLCALL t/i' \
+    > $DIR/include/${SDL}/$filename
 
-  line_num=`cat $DIR/include/SDL/$filename | grep -n "Ends C function" | cut -d : -f 1`
+  line_num=`cat $DIR/include/${SDL}/$filename | grep -n "Ends C function" | cut -d : -f 1`
   if [ ! -z "$line_num" ]; then
-    functions=`grep -E 'typedef [A-Za-z0-9_ \*]+ SDLCALL' $DIR/include/SDL/$filename \
+    functions=`grep -E 'typedef [A-Za-z0-9_ \*]+ SDLCALL' $DIR/include/${SDL}/$filename \
       | sed -r 's/typedef [A-Za-z0-9_ \*]+ SDLCALL t([a-z0-9_]+).*/extern t\1 *\1;/i'`
     functions=`echo "${functions}" | sed -e 's/[\/&]/\\\&/g'`
     echo "$functions" | while read function; do
-      sed -ri "${line_num}s/(.*)/${function}\n\1/" $DIR/include/SDL/$filename
-      line_num=`cat $DIR/include/SDL/$filename | grep -n "Ends C function" | cut -d : -f 1`
+      if [ -z "$function" ]; then
+        continue;
+      fi
+      func_name=`echo $function | cut -d '*' -f 2 | sed -r 's/;//'`
+      if [ ! -z "`echo "$UNSUPPORTED" | grep $func_name`" ]; then
+        continue;
+      fi
+      if [ "$func_name" == "SDL_memcpy" ]; then
+        line_num=`cat $DIR/include/${SDL}/$filename | grep -n "SDL_memcpy4" | cut -d : -f 1`
+        sed -ri "${line_num}s/(.*)/${function}\n\1/" $DIR/include/${SDL}/$filename
+      else
+        sed -ri "${line_num}s/(.*)/${function}\n\1/" $DIR/include/${SDL}/$filename
+      fi
+      line_num=`cat $DIR/include/${SDL}/$filename | grep -n "Ends C function" | cut -d : -f 1`
     done
-    line_num=`cat $DIR/include/SDL/$filename | grep -n "Ends C function" | cut -d : -f 1`
-    sed -ri "${line_num}s/(.*)/\n\1/" $DIR/include/SDL/$filename
+    line_num=`cat $DIR/include/${SDL}/$filename | grep -n "Ends C function" | cut -d : -f 1`
+    sed -ri "${line_num}s/(.*)/\n\1/" $DIR/include/${SDL}/$filename
   fi
 
   if [ $filename == "SDL_stdinc.h"  ]; then
     cat $header | grep -E '#if(def)? (defined\()?HAVE_' | sed -r 's/#if(def)? //' | while read check; do
-      func_names=`cat $DIR/include/SDL/$filename \
+      func_names=`cat $DIR/include/${SDL}/$filename \
                    | grep -A 8 "$check\$" \
                    | grep -v struct \
                    | grep 'typedef' \
@@ -46,10 +65,10 @@ for header in $INCLUDE_DIR/*; do
         full_check="#ifndef $full_check"
       fi
       for func_name in $func_names; do
-         line_num=`grep -n "extern ${func_name} \*" $DIR/include/SDL/$filename | cut -d : -f 1`
+         line_num=`grep -n "extern ${func_name} \*" $DIR/include/${SDL}/$filename | cut -d : -f 1`
          let prev_num=line_num-1
-         if [ -z "`cat $DIR/include/SDL/$filename | head -n $prev_num | tail -n 1 | grep '#if'`" ]; then
-           sed -ri "${line_num}s/(.*)/$full_check \/* GEN_CHECK_MARKER *\/\n\1\n#endif \/* GEN_CHECK_MARKER *\//" $DIR/include/SDL/$filename
+         if [ -z "`cat $DIR/include/${SDL}/$filename | head -n $prev_num | tail -n 1 | grep '#if'`" ]; then
+           sed -ri "${line_num}s/(.*)/$full_check \/* GEN_CHECK_MARKER *\/\n\1\n#endif \/* GEN_CHECK_MARKER *\//" $DIR/include/${SDL}/$filename
          fi
       done
     done
@@ -124,8 +143,8 @@ cat << EOF > $DIR/src/sdlew.c
 
 #include "sdlew.h"
 
-#include "SDL/SDL.h"
-#include "SDL/SDL_syswm.h"
+#include "${SDL}/SDL.h"
+#include "${SDL}/SDL_syswm.h"
 
 #include <assert.h>
 #include <stdio.h>
@@ -165,7 +184,7 @@ static DynamicLibrary lib;
 
 EOF
 
-content=`grep --no-filename -ER "extern tSDL|GEN_CHECK_MARKER" $DIR/include/SDL/`
+content=`grep --no-filename -ER "extern tSDL|GEN_CHECK_MARKER" $DIR/include/${SDL}/`
 
 echo "$content" | sed -r 's/extern t([a-z0-9_]+).*/t\1 *\1;/gi' >> $DIR/src/sdlew.c
 
@@ -184,12 +203,12 @@ int sdlewInit(void) {
   /* Library paths. */
 #ifdef _WIN32
   /* Expected in c:/windows/system or similar, no path needed. */
-  const char *path = "SDL.dll";
+  const char *path = "SDL2.dll";
 #elif defined(__APPLE__)
   /* Default installation path. */
-  const char *path = "/usr/local/cuda/lib/libSDL.dylib";
+  const char *path = "/usr/local/cuda/lib/libSDL2.dylib";
 #else
-  const char *path = "libSDL.so";
+  const char *path = "libSDL2.so";
 #endif
   static int initialized = 0;
   static int result = 0;
@@ -223,18 +242,9 @@ cat << EOF >> $DIR/src/sdlew.c
 
   result = SDLEW_SUCCESS;
 
-  /* Currently we only support SDL-1.2 only. */
-  {
-    const SDL_version *version = SDL_Linked_Version();
-    if(version->major > 1 || version->minor > 2) {
-      result = SDLEW_ERROR_VERSION;
-    }
-  }
-
-
   return result;
 }
 EOF
 
 sed -i 's/\s\/\* GEN_CHECK_MARKER \*\///g' $DIR/src/sdlew.c
-sed -i 's/\s\/\* GEN_CHECK_MARKER \*\///g' $DIR/include/SDL/SDL_stdinc.h
+sed -i 's/\s\/\* GEN_CHECK_MARKER \*\///g' $DIR/include/${SDL}/SDL_stdinc.h
